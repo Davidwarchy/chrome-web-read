@@ -1,7 +1,3 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
 
 let changeColor = document.getElementById('changeColor');
@@ -17,13 +13,8 @@ changeColor.onclick = function(element) {
   // before it can injected a content script
   
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		chrome.tabs.executeScript(
-		  tabs[0].id,
-		  // Scripts injected with tabs.executeScript() will not have access to
+		chrome.tabs.executeScript(tabs[0].id, { file: 'readability.js', allFrames: false }
 		  // variables from this context, leaving |color| undefined.
-		  {code: 'document.body.style.backgroundColor = "' + color + '" ;'});
+		);
 	});
-	//chrome.tabs.create({
-    //  url: 'https://www.google.com'
-    //});
 };

@@ -2235,5 +2235,12 @@ if (typeof module === "object") {
 
 var documentClone = document.cloneNode(true); 
 article = new Readability(documentClone).parse();
-console.log(article);
-console.log("readability");
+var text = article['textContent'];
+console.log(text);
+
+chrome.runtime.sendMessage({
+		'type': 'transmit_article',
+		'text': text
+	},
+	function(){console.log("transmitted article");}
+);
